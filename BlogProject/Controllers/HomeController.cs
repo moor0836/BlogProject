@@ -56,7 +56,7 @@ namespace BlogProject.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [AcceptVerbs("GET")]
         public ActionResult Approve()
         {
@@ -64,6 +64,7 @@ namespace BlogProject.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin")]
         [Authorize]
         [AcceptVerbs("Get")]
         public ActionResult ApprovePost(int Id)
@@ -73,6 +74,7 @@ namespace BlogProject.Controllers
             return View(model);
         }
         [Authorize]
+        [Authorize(Roles = "admin")]
         [AcceptVerbs("POST"), ValidateInput(false)]
         public ActionResult Post(BlogEntry newPost)
         {

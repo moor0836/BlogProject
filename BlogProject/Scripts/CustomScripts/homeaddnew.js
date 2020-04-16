@@ -23,5 +23,5 @@ function LoadCategories() {
 }
 
 function UpdateHiddenTextBox() {
-    document.getElementById('hiddencategoryidtextbox').value = document.getElementById('categories').value();
+    document.getElementById('hiddencategoryidtextbox').value = document.getElementById('categories').options[document.getElementById('categories').selectedIndex].value;
 }

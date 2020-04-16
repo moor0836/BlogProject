@@ -1,8 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\BlogProject"
+    "\\BlogProject",
+    "\\BlogProject\\Data"
   ],
-  "SelectedNode": "\\BlogProject\\Web.config",
   "PreviewInSolutionExplorer": false
 }

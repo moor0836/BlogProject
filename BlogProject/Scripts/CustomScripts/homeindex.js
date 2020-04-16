@@ -93,7 +93,7 @@ function SearchPosts() {
                     '<div class="col-sm-12">' +
                     '<div class="row">' +
                     '<div class="col-sm-8 title">' +
-                    '<h4><a href="https://localhost:44390/Home/Details?id=@x.BlogId">' + x.Title + '</a> </h4><br />' +
+                    '<h4><a href="https://localhost:44390/Home/Details?id=' + x.BlogId + '">' + x.Title + '</a> </h4><br />' +
                     '</div>' +
                     '<div class="col-sm-4 author">' +
                     '<p>Author: ' + x.Author + '</p><br />' +
