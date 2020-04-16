@@ -1,0 +1,10 @@
+﻿@model BlogProject.Models.BlogEntry
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Title</h2><br /><hr />
+<p><i>Author: @Model.Author Published: @Model.DateCreated.Month/@Model.DateCreated.Day/@Model.DateCreated.Year</i></p><br />
+<p>@Html.Raw(@Model.FullText)</p>
+

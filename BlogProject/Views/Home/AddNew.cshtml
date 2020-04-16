@@ -1,0 +1,78 @@
+﻿@model BlogProject.Models.BlogEntry
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "AddNew";
+}
+
+<html>
+<head>
+
+    <script src="~/scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '.mytextarea'
+        });
+    </script>
+
+</head>
+<body>
+    <h2>New Blog Post</h2>
+    <hr />
+    <br />
+    <div class="container">
+        @using (Html.BeginForm("AddNew", "Home", FormMethod.Post))
+        {
+        <div class="form-group">
+            <div class="row">
+                <label>Author: </label>@Html.TextBoxFor(m => m.Author, new { @class = "form-control" })
+            </div>
+            <div class="row">
+                <label>Date Created: </label>@Html.TextBoxFor(m => m.DateCreated, new { @class = "form-control" })
+            </div>
+            <div class="row">
+                <label>Title: </label>@Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            </div>
+            <div class="row">
+                <label>Full Text:</label>
+            </div>
+            <div class="row">
+                @Html.TextAreaFor(m => m.FullText, new { @class = "mytextarea form-control" })
+            </div>
+            <div class="row">
+                <label>Preview Text: </label>
+            </div>
+            <div class="row">
+                @Html.TextAreaFor(m => m.PreviewText, new { @class = "mytextarea form-control" })
+            </div>
+            <div class="row">
+                <select id="categories" onchange="UpdateHiddenTextBox()">
+                </select>
+            </div>
+            <div class="row">
+                <label>Tags: (separate by spaces)</label>
+            </div>
+            <div class="row">
+                @Html.TextBoxFor(m=> m.UnprocessedTags, new{@class="form-control"})
+            </div>
+            <div class="row">
+                <button class="btn btn-primary">Save</button>
+            </div>
+            @Html.TextBoxFor(m => m.BlogId, new { @class = "form-control hidden" })
+            @Html.TextBoxFor(m => m.Category.Id, new { @class = "form-control hidden", @id="hiddencategoryidtextbox", @Value="0"})
+        </div>
+        }
+    </div>
+</body>
+</html>
+@section customcss{
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+}
+
+@section scripts{
+    <script src="~/Scripts/CustomScripts/homeaddnew.js"></script>
+}
