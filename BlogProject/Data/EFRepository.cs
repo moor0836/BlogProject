@@ -12,6 +12,19 @@ namespace BlogProject.Data
         public void Add(BlogEntry newBlog)
         {
 
+            newBlog.ConvertTagListToUnprocessed();
+            using (var context = new EFEntities())
+            {
+                EFBlogEntry forUpdate = context.BlogEntries.SingleOrDefault(p => p.BlogId == newBlog.BlogId);
+                forUpdate.Title = newBlog.Title;
+                forUpdate.FullText = newBlog.FullText;
+                forUpdate.PreviewText = newBlog.PreviewText;
+                forUpdate.TagListString = newBlog.UnprocessedTags;
+                forUpdate.Author = newBlog.Author;
+                forUpdate.Posted = true;
+                context.SaveChanges();
+            }
+
         }
 
         public void AddToQueue(BlogEntry x)

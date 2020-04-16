@@ -203,7 +203,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\BlogEntry.cs" />
+    <Compile Include="..\..\..\..\Desktop\BlogEntry.cs">
+      <Link>Models\BlogEntry.cs</Link>
+    </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\EFModels\EFBlogEntry.cs" />
     <Compile Include="Models\EFModels\EFCategory.cs" />
