@@ -11,13 +11,32 @@ namespace BlogProject.Data
     {
         public void Add(BlogEntry newBlog)
         {
-            throw new NotImplementedException();
+
         }
 
         public void AddToQueue(BlogEntry x)
         {
-            throw new NotImplementedException();
+            x.ConvertTagListToUnprocessed();
+            var addResult = new EFBlogEntry()
+            {
+                BlogId = x.BlogId,
+                DateCreated = x.DateCreated,
+                FullText = x.FullText,
+                Author = x.Author,
+                PreviewText = x.PreviewText,
+                Title = x.Title,
+                CategoryId = x.Category.Id,
+                TagListString = x.UnprocessedTags,
+                Posted = false
+            };
+            using (var context = new EFEntities())
+            {
+                context.BlogEntries.Add(addResult);
+                context.SaveChanges();
+            }
         }
+
+
 
         public void Delete(int blogId)
         {
@@ -32,7 +51,7 @@ namespace BlogProject.Data
         public BlogEntry Get(int blogId)
         {
             BlogEntry result;
-            using(var context = new EFEntities())
+            using (var context = new EFEntities())
             {
                 EFBlogEntry x = context.BlogEntries.Include("Category").SingleOrDefault(y => y.BlogId == blogId);
                 result = new BlogEntry()
@@ -78,7 +97,7 @@ namespace BlogProject.Data
                     Tags = new List<string>()
                 }).ToList();
             }
-            foreach (BlogEntry x in result) 
+            foreach (BlogEntry x in result)
             {
                 x.ConvertUnprocessedToTagList();
             }
@@ -87,7 +106,31 @@ namespace BlogProject.Data
 
         public List<BlogEntry> GetByCategory(int categoryId)
         {
-            throw new NotImplementedException();
+            List<BlogEntry> result = new List<BlogEntry>();
+            using (var context = new EFEntities())
+            {
+                result = context.BlogEntries.Include("Category").Where(a => a.CategoryId == categoryId && a.Posted == true).ToList().Select(x => new BlogEntry()
+                {
+                    BlogId = x.BlogId,
+                    DateCreated = x.DateCreated,
+                    FullText = x.FullText,
+                    Author = x.Author,
+                    PreviewText = x.PreviewText,
+                    Title = x.Title,
+                    Category = new Category()
+                    {
+                        Id = x.Category.CategoryId,
+                        Text = x.Category.CategoryName
+                    },
+                    UnprocessedTags = x.TagListString,
+                    Tags = new List<string>()
+                }).ToList();
+            }
+            foreach (BlogEntry x in result)
+            {
+                x.ConvertUnprocessedToTagList();
+            }
+            return result;
         }
 
         public List<Category> GetCategories()
@@ -104,22 +147,86 @@ namespace BlogProject.Data
 
         public BlogEntry GetFromQueue(int blogId)
         {
-            throw new NotImplementedException();
+            return Get(blogId);
         }
 
         public List<BlogEntry> GetPostsByTag(string tags)
         {
-            throw new NotImplementedException();
+
+            List<BlogEntry> result = new List<BlogEntry>();
+            BlogEntry discard = new BlogEntry() { UnprocessedTags = tags };
+            discard.ConvertUnprocessedToTagList();
+            using (var context = new EFEntities())
+            {
+                foreach (var tag in discard.Tags)
+                {
+                    List<BlogEntry> tagCheck = context.BlogEntries.Include("Category").Where(a => a.TagListString.Contains(tag) && a.Posted == true).ToList().Select(x => new BlogEntry()
+                    {
+                        BlogId = x.BlogId,
+                        DateCreated = x.DateCreated,
+                        FullText = x.FullText,
+                        Author = x.Author,
+                        PreviewText = x.PreviewText,
+                        Title = x.Title,
+                        Category = new Category()
+                        {
+                            Id = x.Category.CategoryId,
+                            Text = x.Category.CategoryName
+                        },
+                        UnprocessedTags = x.TagListString,
+                        Tags = new List<string>()
+                    }).ToList();
+                    foreach (var tagCheckEntry in tagCheck)
+                    {
+                        if (!result.Contains(tagCheckEntry))
+                        {
+                            result.Add(tagCheckEntry);
+                        }
+                    }
+                }
+            }
+
+            foreach (BlogEntry x in result)
+            {
+                x.ConvertUnprocessedToTagList();
+            }
+            return result;
         }
 
         public List<BlogEntry> GetQueue()
         {
-            throw new NotImplementedException();
+
+            List<BlogEntry> result = new List<BlogEntry>();
+            using (var context = new EFEntities())
+            {
+                result = context.BlogEntries.Include("Category").Where(a => a.Posted == false).ToList().Select(x => new BlogEntry()
+                {
+                    BlogId = x.BlogId,
+                    DateCreated = x.DateCreated,
+                    FullText = x.FullText,
+                    Author = x.Author,
+                    PreviewText = x.PreviewText,
+                    Title = x.Title,
+                    Category = new Category()
+                    {
+                        Id = x.Category.CategoryId,
+                        Text = x.Category.CategoryName
+                    },
+                    UnprocessedTags = x.TagListString,
+                    Tags = new List<string>()
+                }).ToList();
+            }
+            foreach (BlogEntry x in result)
+            {
+                x.ConvertUnprocessedToTagList();
+            }
+            return result;
         }
 
         public List<string> GetTags(int blogId)
         {
-            throw new NotImplementedException();
+            BlogEntry blog = Get(blogId);
+            return blog.Tags;
         }
     }
 }
