@@ -4,7 +4,60 @@
     ViewBag.Title = "Details";
 }
 
-<h2>@Model.Title</h2><br /><hr />
-<p><i>Author: @Model.Author Published: @Model.DateCreated.Month/@Model.DateCreated.Day/@Model.DateCreated.Year</i></p><br />
-<p>@Html.Raw(@Model.FullText)</p>
+<div class="padding"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" style="text-align: center; color:darkred;">
+            <h2>@Model.Title</h2><br /><hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 readability">
+            <p><i>Author: @Model.Author<br />Published: @Model.DateCreated.Month/@Model.DateCreated.Day/@Model.DateCreated.Year</i></p><br />
+            <p>@Html.Raw(@Model.FullText)</p>
+        </div>
+    </div>
+    <div class="row">
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br />
+    </div>
+</div>
 
+
+@section customcss{
+    <style>
+        .padding {
+            margin-top: 25px;
+        }
+
+        body {
+            background-image: url(../Images/background.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+            body::after {
+                opacity: .3;
+            }
+
+        a {
+            color: darkred;
+        }
+
+        label {
+            color: white;
+        }
+
+        button, .btn {
+            background-color: darkred;
+            color: white;
+        }
+        .readability{
+            background-color: white;
+        }
+        h2 {
+            color: darkred;
+            text-shadow: #fff 1px 0 10px;
+        }
+    </style>
+    }

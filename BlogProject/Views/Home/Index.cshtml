@@ -4,7 +4,8 @@
     ViewBag.Title = "Home Page";
 }
 
-
+<div class="padding">
+</div>
 <br />
 <div class="container">
     <div class="row">
@@ -39,49 +40,50 @@
 
 <div class="container">
     <br /><br />
-          <div id="blogPostSection">
-              @foreach (var x in Model)
-              {
-                  <div class="row blogRow">
-                      <div class="col-sm-12">
-                          <div class="row">
-                              <div class="col-sm-8 title">
-                                  <h4><a href="https://localhost:44390/Home/Details?id=@x.BlogId">@x.Title</a> </h4><br />
-                              </div>
-                              <div class="col-sm-4 author">
-                                  <p>Author: @x.Author</p><br />
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-sm-12">
-                                  <p>@Html.Raw(@x.PreviewText)</p>
-                              </div>
-                              <div class="col-sm-6">
-                                  <p>Category: @x.Category.Text</p>
-                              </div>
-                              <div class="col-sm-6 publishDate">
-                                  <p><i>Published: @x.DateCreated.Month/@x.DateCreated.Day/@x.DateCreated.Year</i></p>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-sm-12">
-                                  <p>
-                                      Tags: 
-                                      @if (x.Tags != null)
-                                      {
-                                          foreach (var y in x.Tags)
-                                          {
-                                          <span> @y  </span>
-                                          }
-                                      }
-                                  </p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              }
-          </div>
+    <div id="blogPostSection">
+        @foreach (var x in Model)
+        {
+            <div class="row blogRow">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-8 title">
+                            <h4><a href="https://localhost:44390/Home/Details?id=@x.BlogId">@x.Title</a> </h4><br />
+                        </div>
+                        <div class="col-sm-4 author">
+                            <p>Author: @x.Author</p><br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>@Html.Raw(@x.PreviewText)</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p>Category: @x.Category.Text</p>
+                        </div>
+                        <div class="col-sm-6 publishDate">
+                            <p><i>Published: @x.DateCreated.Month/@x.DateCreated.Day/@x.DateCreated.Year</i></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>
+                                Tags:
+                                @if (x.Tags != null)
+                                {
+                                    foreach (var y in x.Tags)
+                                    {
+                                        <span> @y  </span>
+                                    }
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
 
 @section customcss{
     <style>
@@ -89,11 +91,34 @@
             border: thin solid;
             margin: 15px;
             padding: 15px;
+            background-color: white;
         }
 
         .publishDate, .author {
             text-align: right;
             vertical-align: baseline;
+        }
+
+        .padding {
+            margin-top: 25px;
+        }
+        body{
+            background-image: url(../Images/background.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        body::after{
+            opacity: .3;
+        }
+        a {
+            color: darkred;
+        }
+        label {
+            color: white;
+        }
+        button{
+            background-color: darkred;
+            color: white;
         }
     </style>
 }

@@ -5,6 +5,9 @@
     ViewBag.Title = "AddNew";
 }
 
+<div class="padding">
+
+</div>
 <html>
 <head>
 
@@ -25,38 +28,71 @@
         {
         <div class="form-group">
             <div class="row">
-                <label>Author: </label>@Html.TextBoxFor(m => m.Author, new { @class = "form-control" })
+                <div class="col-sm-4">
+                    <label>Author: </label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Author, new { @class = "form-control" })
+                </div>
             </div>
             <div class="row">
-                <label>Date Created: </label>@Html.TextBoxFor(m => m.DateCreated, new { @class = "form-control" })
+                <div class="col-sm-4">
+                    <label>Date Created: </label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.DateCreated, new { @class = "form-control" })
+                </div>
             </div>
             <div class="row">
-                <label>Title: </label>@Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                <div class="col-sm-4">
+                    <label>Title: </label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                </div>   
             </div>
             <div class="row">
-                <label>Full Text:</label>
+                <div class="col-sm-12">
+                    <label>Full Text:</label>
+                </div>
             </div>
             <div class="row">
-                @Html.TextAreaFor(m => m.FullText, new { @class = "mytextarea form-control" })
+                <div class="col-sm-12">
+                    @Html.TextAreaFor(m => m.FullText, new { @class = "mytextarea form-control" })
+                </div>
             </div>
             <div class="row">
-                <label>Preview Text: </label>
+                <div class="col-sm-12">
+                    <label>Preview Text: </label>
+                </div>
             </div>
             <div class="row">
-                @Html.TextAreaFor(m => m.PreviewText, new { @class = "mytextarea form-control" })
+                <div class="col-sm-12">
+                    @Html.TextAreaFor(m => m.PreviewText, new { @class = "mytextarea form-control" })
+                </div>
             </div>
             <div class="row">
-                <select id="categories" onchange="UpdateHiddenTextBox()">
-                </select>
+                <div class="col-sm-12">
+                    <label for="categories">Category: </label>
+                </div>
+                <div class="col-sm-12">
+                    <select id="categories" onchange="UpdateHiddenTextBox()"></select>
+                </div>
             </div>
             <div class="row">
-                <label>Tags: (separate by spaces)</label>
+                <div class="col-sm-12">
+                    <label>Tags: (separate by spaces)</label>
+                </div>
             </div>
             <div class="row">
-                @Html.TextBoxFor(m=> m.UnprocessedTags, new{@class="form-control"})
+                <div class="col-sm-12">
+                    @Html.TextBoxFor(m => m.UnprocessedTags, new { @class = "form-control" })
+                </div>
             </div>
             <div class="row">
-                <button class="btn btn-primary">Save</button>
+                <div class="col-sm-12">
+                    <button class="btn btn-primary">Save</button>
+                </div>
             </div>
             @Html.TextBoxFor(m => m.BlogId, new { @class = "form-control hidden" })
             @Html.TextBoxFor(m => m.Category.Id, new { @class = "form-control hidden", @id="hiddencategoryidtextbox", @Value="1"})
@@ -69,6 +105,36 @@
     <style>
         .hidden {
             display: none;
+        }
+        .padding {
+            margin-top: 25px;
+        }
+
+        body {
+            background-image: url(../Images/background.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+            body::after {
+                opacity: .3;
+            }
+
+        a {
+            color: darkred;
+        }
+
+        label {
+            color: white;
+        }
+
+        button, .btn {
+            background-color: darkred;
+            color: white;
+        }
+        h2 {
+            color: darkred;
+            text-shadow: #fff 1px 0 10px;
         }
     </style>
 }
